@@ -3,13 +3,16 @@ import java.net.*;
 
 public class CalculatorClient {
     public static void main(String[] args) {
+        ConfigReader configReader = new ConfigReader();
+
         try {
-            Socket socket = new Socket("localhost", 12345);
+            Socket socket = new Socket(configReader.getServerIp(), configReader.getServerPort());
             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             BufferedReader userInput = new BufferedReader(new InputStreamReader(System.in));
-//          Tells user what the format looks like
-            System.out.println("Connected to the Calculator Server. Enter your calculations (e.g., ADD 5 3) or 'exit' to quit.");
+
+            System.out.println("Connected to the Calculator Server.");
+            System.out.println("Enter your calculations (e.g., 5 + 3) or 'exit' to quit.");
 
             String input;
             while (true) {
